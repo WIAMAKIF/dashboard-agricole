@@ -138,11 +138,11 @@ Projet académique – tous droits réservés.
 
 
 
-  \*\*\*   \*\*\* ENGLISH VERSION   \*\*\*   \*\*\*
+  ***   *** ENGLISH VERSION   ***   ***
 
 
 
-\# 🌾 Agricultural Dashboard – Visualization of Key Farm Indicators
+# 🌾 Agricultural Dashboard – Visualization of Key Farm Indicators
 
 
 
@@ -154,7 +154,7 @@ This application provides real-time monitoring of agricultural indicators (yield
 
 
 
-\## 📁 Project Structure
+## 📁 Project Structure
 
 
 
