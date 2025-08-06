@@ -13,8 +13,8 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '', // Remets ton mot de passe ici si nécessaire
-  database: 'agricole_db', // Assure-toi que c’est le nom exact de ta BDD
+  password: '', 
+  database: 'agricole_db', 
 });
 
 db.connect(err => {
