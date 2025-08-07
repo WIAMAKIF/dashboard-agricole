@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const connection = require('../config/db'); // ton fichier de connexion MySQL
 
-// Exemple simple : total de cultures
-router.get('/summary', (req, res) => {
-  db.query('SELECT COUNT(*) AS totalCultures FROM culture', (err, results) => {
-    if (err) return res.status(500).json({ error: err });
-    res.json(results[0]);
+// Route pour récupérer les rendements
+router.get('/rendement', (req, res) => {
+  const query = 'SELECT * FROM rendement';
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la récupération des rendements:', error);
+      res.status(500).json({ error: 'Erreur serveur' });
+    } else {
+      res.json(results);
+    }
   });
 });
 
