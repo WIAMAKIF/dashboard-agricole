@@ -9,7 +9,6 @@
       <router-link to="/culture">🌱 Culture</router-link> |
       <router-link to="/stock">📦 Stock</router-link> |
       <router-link to="/main-oeuvre">👷 Main-d'œuvre</router-link> |
-      <router-link to="/rendement">📊 Rendement</router-link>
     </nav>
 
     <!-- Affichage de la page sélectionnée -->
