@@ -25,13 +25,13 @@ const routes = [
   { path: '/login', component: Login },
 
   // Accessible uniquement à la direction
-  { path: '/', component: Dashboard, beforeEnter: requireRole('direction') },
+  { path: '/', component: Dashboard, beforeEnter: requireRole('direction', 'chef', 'controleur') },
 
   // Exemple : accessible aux chefs et direction
-  { path: '/climat', component: Climat, beforeEnter: requireRole('chef', 'direction') },
+  { path: '/climat', component: Climat, beforeEnter: requireRole('direction', 'chef')},
 
   // Exemple : accessible à tous les rôles connectés
-  { path: '/culture', component: Culture, beforeEnter: requireAuth },
+  { path: '/culture', component: Culture, beforeEnter: requireRole('direction', 'chef') },
   { path: '/stock', component: Stock, beforeEnter: requireRole('controleur', 'direction') },
   { path: '/main-oeuvre', component: MainOeuvre, beforeEnter: requireRole('controleur', 'direction') },
   { path: '/rendement', component: Rendement, beforeEnter: requireAuth },

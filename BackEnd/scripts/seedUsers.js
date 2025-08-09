@@ -3,9 +3,9 @@ const db = require('../db');
 
 (async () => {
   const users = [
-    { nom:'Alice', email:'alice@ex.com', pass:'secret123', role:'direction' },
-    { nom:'Bob', email:'bob@ex.com', pass:'secret123', role:'chef' },
-    { nom:'Carla', email:'carla@ex.com', pass:'secret123', role:'controleur' }
+    { nom:'Directeur', email:'directeur@ex.com', pass:'secret123', role:'direction' },
+    { nom:'Chef', email:'chef@ex.com', pass:'secret123', role:'chef' },
+    { nom:'Controleur', email:'controleur@ex.com', pass:'secret123', role:'controleur' }
   ];
   for (const u of users) {
     const hash = await bcrypt.hash(u.pass, 10);

@@ -1,5 +1,14 @@
 <template>
   <div class="dashboard">
+    <!-- Header avec déconnexion -->
+    <header v-if="isLoggedIn" class="header">
+      <div>🌱 Tableau Agricole</div>
+      <div class="header-right">
+        <span v-if="user">Bonjour, <strong>{{ user.nom }}</strong></span>
+        <button @click="logout" class="logout-btn">Déconnexion</button>
+      </div>
+    </header>
+
     <h2>📊 Tableau de Bord Agricole</h2>
 
     <!-- Filtres -->
@@ -59,9 +68,7 @@ import LineChart from '@/components/LineChart.vue';
 
 export default {
   name: 'DashboardView',
-  components: {
-    LineChart,
-  },
+  components: { LineChart },
   data() {
     return {
       data: [],
@@ -72,39 +79,35 @@ export default {
     };
   },
   computed: {
+    isLoggedIn() {
+      return !!localStorage.getItem('token');
+    },
+    user() {
+      try { return JSON.parse(localStorage.getItem('user')); }
+      catch { return null; }
+    },
     cultureOptions() {
       return [...new Set(this.data.map((item) => item.id_culture))];
     },
     chartData() {
       if (!this.filteredData.length) return null;
-
       const labels = this.filteredData.map((item) => this.formatDate(item.date));
       const data = this.filteredData.map((item) => item.quantite_kg);
-
       return {
         labels,
         datasets: [
-          {
-            label: 'Quantité récoltée (kg)',
-            data,
-            backgroundColor: '#4CAF50',
-          },
+          { label: 'Quantité récoltée (kg)', data, backgroundColor: '#4CAF50' },
         ],
       };
     },
     chartOptions() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-      };
+      return { responsive: true, maintainAspectRatio: false };
     },
     totalKg() {
       return this.filteredData.reduce((acc, item) => acc + item.quantite_kg, 0);
     },
     averageKg() {
-      return this.filteredData.length
-        ? this.totalKg / this.filteredData.length
-        : 0;
+      return this.filteredData.length ? this.totalKg / this.filteredData.length : 0;
     },
   },
   methods: {
@@ -122,8 +125,7 @@ export default {
         const matchesCulture =
           !this.selectedCulture || item.id_culture === parseInt(this.selectedCulture);
         const date = new Date(item.date);
-        const matchesStart =
-          !this.startDate || date >= new Date(this.startDate);
+        const matchesStart = !this.startDate || date >= new Date(this.startDate);
         const matchesEnd = !this.endDate || date <= new Date(this.endDate);
         return matchesCulture && matchesStart && matchesEnd;
       });
@@ -132,15 +134,26 @@ export default {
       const date = new Date(dateStr);
       return date.toLocaleDateString('fr-FR');
     },
+    logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      localStorage.removeItem('user');
+      this.$router.push('/login');
+    },
   },
-  mounted() {
-    this.fetchData();
-  },
+  mounted() { this.fetchData(); },
 };
 </script>
 
 <style scoped>
-.dashboard {
-  padding: 20px;
+.dashboard { padding: 20px; }
+.header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; background: #16a34a; color: white; border-radius: 8px; margin-bottom: 16px;
 }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.logout-btn {
+  background: #ef4444; color: white; border: 0; padding: 6px 10px; border-radius: 6px; cursor: pointer;
+}
+.logout-btn:hover { opacity: 0.9; }
 </style>
