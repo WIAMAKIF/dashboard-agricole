@@ -32,6 +32,9 @@ const dashboardRoutes = require('./routes/DashboardRoutes');
 const mainOeuvreRoutes = require('./routes/MainOeuvreRoutes');
 const rendementRoutes = require('./routes/RendementRoutes');
 const stockRoutes = require('./routes/StockRoutes');
+const authRoutes = require('./routes/authRoutes');
+
+
 
 // Utilisation des routes
 app.use('/api/climat', climatRoutes);
@@ -40,6 +43,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/maindoeuvre', mainOeuvreRoutes);
 app.use('/api/rendement', rendementRoutes);
 app.use('/api/stock', stockRoutes);
+app.use('/api/auth', authRoutes);
 
 // Lancer le serveur
 app.listen(port, () => {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const connection = require('../config/db'); // ton fichier de connexion MySQL
+const connection = require('../db'); // mon fichier de connexion MySQL
 
 // Route pour récupérer les rendements
 router.get('/rendement', (req, res) => {
